@@ -2,8 +2,11 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.awt.event.KeyEvent;
 
 import processing.core.PApplet;
 import processing.data.JSONArray;
@@ -16,8 +19,12 @@ import processing.data.JSONObject;
 @SuppressWarnings("serial")
 public class MainApplet extends PApplet{
 	
-	private ArrayList<Character> outputList = new ArrayList<Character>();
+	Map characters = new < Integer, ArrayList<Character>> HashMap(); //< episode ,character list>
+	private ArrayList<Character> outputList;
 	private String path = "main/resources/";
+	private int ep;
+	private boolean dragging;
+	private Character chosen;
 	private String[] file = new String[]{
 			"starwars-episode-1-interactions.json",
 			"starwars-episode-2-interactions.json",
@@ -29,21 +36,51 @@ public class MainApplet extends PApplet{
 	};
 	
 	private final static int width = 1200, height = 650;
-	Map characters = new < Integer, ArrayList<Character>> HashMap(); //< episode ,character list>
-	
 	
 	public void setup() {
 
 		size(width, height);
+		ep = 0;
 		smooth();
 		loadData();
 		
 	}
 
 	public void draw() {
-		for(int i=0; i<7; i++){
-			chList
+		background(255);
+		for(Character it : outputList){
+			it.display();
 		}
+		for(Character it : outputList){
+			if(Math.abs(mouseX-it.x)<it.radius/2&&Math.abs(mouseY-it.y)<it.radius/2){
+				if(dragging == false || (dragging == true&& it==chosen)){
+					fill(255,255,0);
+					rect(it.x,it.y,60+(it.getName().length()-4)*7,30);
+					fill(0,0,0);
+					text( it.getName(), it.x+12, it.y+20);
+				}
+				if(mousePressed){
+					if(dragging==false) chosen = it;
+					dragging = true;
+					
+				}else{
+					dragging = false;
+					chosen = null;
+				}
+			}
+		}
+		if(dragging == true && chosen != null)
+			chosen.setPosition(mouseX, mouseY);
+	}
+
+	public void keyPressed(){
+		if(keyCode == KeyEvent.VK_1) setOutputList(0);
+		if(keyCode == KeyEvent.VK_2) setOutputList(1);
+		if(keyCode == KeyEvent.VK_3) setOutputList(2);
+		if(keyCode == KeyEvent.VK_4) setOutputList(3);
+		if(keyCode == KeyEvent.VK_5) setOutputList(4);
+		if(keyCode == KeyEvent.VK_6) setOutputList(5);
+		if(keyCode == KeyEvent.VK_7) setOutputList(6);
 	}
 
 	private void loadData(){
@@ -57,7 +94,7 @@ public class MainApplet extends PApplet{
 				Character ch = new Character( this, node.getString("name"), node.getString("colour"), i);
 				chList.add(ch);
 			}
-			characters.put(	j+1, chList);
+			characters.put(	j, chList);
 		
 			for(int i = 0; i<links.size(); i++){
 				JSONObject link = links.getJSONObject(i);
@@ -66,6 +103,10 @@ public class MainApplet extends PApplet{
 				s.addTarget(t, link.getInt("value"));
 			}
 		}
+		setOutputList(0);
 	}
-
+	
+	private void setOutputList(int ep){
+		outputList = (ArrayList<Character>) characters.get(ep);
+	}
 }

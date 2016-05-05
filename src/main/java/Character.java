@@ -15,10 +15,10 @@ public class Character {
 	
 	private MainApplet parent;
 	private String name;
-	private int radius = 20;	//37 character in total
-	private int iniX, iniY;
+	public float radius = 45;	//37 character in total
+	private float iniX, iniY;
 	public float x, y;
-	private Color color;
+	private String R ,G ,B;
 	private HashMap<Character,Integer> interact = new HashMap<Character,Integer>();
 	private ArrayList<Character> target = new ArrayList<Character>();
 
@@ -26,25 +26,20 @@ public class Character {
 
 		this.parent = parent;
 		this.name = name;
-		this.color = hex2Rgb(color.substring(1));
-		iniX = (radius+20)+(seq/10)*(2*radius+20);
-		iniY = 25+(seq%10)*(2*radius+20);
+		this.R = color.substring(3,5);
+		this.G = color.substring(5,7);
+		this.B = color.substring(7,9);
+		iniX = 30+(seq/10)*(radius+15);
+		iniY = 45+(seq%10)*(radius+15);
 		x = iniX;
 		y = iniY;
 	}
 
 	public void display(){
-		parent.fill(this.color.getRGB());
+		parent.fill(Integer.parseInt(R,16),Integer.parseInt(G,16),Integer.parseInt(B,16));
 		parent.ellipse(this.x, this.y, radius, radius);
 	}
 	
-	public static Color hex2Rgb(String colorStr) {
-		//"# FF_808_080"
-	    return new Color(
-	            Integer.valueOf( colorStr.substring( 1, 3 ), 16 ),
-	            Integer.valueOf( colorStr.substring( 3, 6 ), 16 ),
-	            Integer.valueOf( colorStr.substring( 6, 9 ), 16 ) );
-	}
 	
 	public void addTarget(Character ch, int level){
 		target.add(ch);
@@ -57,5 +52,19 @@ public class Character {
 	
 	public HashMap<Character,Integer> getInteract(){
 		return interact;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void setPosition(float x, float y){
+		this.x = x;
+		this.y = y;
+	}
+	
+	public void setInitial(){
+		this.x = iniX;
+		this.y = iniY;
 	}
 }
