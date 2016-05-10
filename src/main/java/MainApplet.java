@@ -97,13 +97,35 @@ public class MainApplet extends PApplet{
 	}
 
 	public void keyPressed(){
-		if(keyCode == KeyEvent.VK_1) setOutputList(0);
-		if(keyCode == KeyEvent.VK_2) setOutputList(1);
-		if(keyCode == KeyEvent.VK_3) setOutputList(2);
-		if(keyCode == KeyEvent.VK_4) setOutputList(3);
-		if(keyCode == KeyEvent.VK_5) setOutputList(4);
-		if(keyCode == KeyEvent.VK_6) setOutputList(5);
-		if(keyCode == KeyEvent.VK_7) setOutputList(6);
+		if(keyCode == KeyEvent.VK_1){
+			setOutputList(0);
+			ep =0;
+		}
+		if(keyCode == KeyEvent.VK_2){
+			setOutputList(1);
+			ep = 1;
+		}
+		if(keyCode == KeyEvent.VK_3){
+			setOutputList(2);
+			ep = 2;
+		}
+		if(keyCode == KeyEvent.VK_4){
+			setOutputList(3);
+			ep = 3;
+		}
+		if(keyCode == KeyEvent.VK_5){
+			setOutputList(4);
+			ep = 4;
+		}
+		if(keyCode == KeyEvent.VK_6){
+			setOutputList(5);
+			ep = 5;
+		}
+		if(keyCode == KeyEvent.VK_7){
+			setOutputList(6);
+			ep = 6;
+		}
+		this.clearAllNode();//!!new function
 	}
 
 	private void loadData(){
@@ -132,6 +154,7 @@ public class MainApplet extends PApplet{
 	}
 
 	private void setOutputList(int ep){
+
 		outputList = (ArrayList<Character>) characters.get(ep);
 	}
 
