@@ -15,11 +15,11 @@ import controlP5.*;
 
 /**
 * This class is for sketching outcome using Processing
-* You can do major UI control and some visualization in this class.
+* You can do major UI control and some visualization in this class.  
 */
 @SuppressWarnings("serial")
 public class MainApplet extends PApplet{
-
+	
 	Map characters = new < Integer, ArrayList<Character>> HashMap(); //< episode ,character list>
 	private ArrayList<Character> outputList = new<Character>ArrayList();
 	private String path = "main/resources/";
@@ -38,9 +38,9 @@ public class MainApplet extends PApplet{
 			"starwars-episode-7-interactions.json"
 	};
 	private Button button;
-
+	
 	private final static int width = 1200, height = 650;
-
+	
 	public void setup() {
 
 		size(width, height);
@@ -50,7 +50,7 @@ public class MainApplet extends PApplet{
 		network = new Network(this);
 		button = new Button(this);
 		num = new Random();
-
+		
 	}
 
 	public void draw() {
@@ -71,15 +71,15 @@ public class MainApplet extends PApplet{
 				if(mousePressed){
 					if(dragging==false) chosen = it;
 					dragging = true;
-
+					
 				}else{
 					dragging = false;
 					if(chosen!=null){
-						if((chosen.getX()-network.getX())*(chosen.getX()-network.getX() )
+						if((chosen.getX()-network.getX())*(chosen.getX()-network.getX() ) 
 							+(chosen.getY()-network.getY())*(chosen.getY()-network.getY())>62500  ){//outside the circle
 							chosen.setPosition(chosen.getiniX(), chosen.getiniY());
 							if(network.isNodeExist(chosen)==true)//delete node in the network
-								network.deletenode(chosen);
+								network.deletenode(chosen);		
 						}
 						else {//inside the circle
 							network.addNode(chosen);//add node to the network list
@@ -97,31 +97,31 @@ public class MainApplet extends PApplet{
 	}
 
 	public void keyPressed(){
-		if(keyCode == KeyEvent.VK_1){
+		if(keyCode == KeyEvent.VK_1){ 
 			setOutputList(0);
 			ep =0;
 		}
-		if(keyCode == KeyEvent.VK_2){
+		if(keyCode == KeyEvent.VK_2){ 	
 			setOutputList(1);
 			ep = 1;
 		}
-		if(keyCode == KeyEvent.VK_3){
+		if(keyCode == KeyEvent.VK_3){ 
 			setOutputList(2);
 			ep = 2;
 		}
-		if(keyCode == KeyEvent.VK_4){
+		if(keyCode == KeyEvent.VK_4){ 
 			setOutputList(3);
 			ep = 3;
 		}
-		if(keyCode == KeyEvent.VK_5){
+		if(keyCode == KeyEvent.VK_5){ 
 			setOutputList(4);
 			ep = 4;
 		}
-		if(keyCode == KeyEvent.VK_6){
+		if(keyCode == KeyEvent.VK_6){ 
 			setOutputList(5);
 			ep = 5;
 		}
-		if(keyCode == KeyEvent.VK_7){
+		if(keyCode == KeyEvent.VK_7){ 
 			setOutputList(6);
 			ep = 6;
 		}
@@ -140,7 +140,7 @@ public class MainApplet extends PApplet{
 				chList.add(ch);
 			}
 			characters.put(	j, chList);//put into different mode
-
+		
 			for(int i = 0; i<links.size(); i++){
 				JSONObject link = links.getJSONObject(i);
 				Character s =(Character) chList.get(link.getInt("source"));
@@ -149,41 +149,42 @@ public class MainApplet extends PApplet{
 			}
 			//setOutputList(j);//important !! modified
 		}
-		setOutputList(0);//important !! modified
-
+		//setOutputList(0);//important !! modified
+		outputList = (ArrayList<Character>) characters.get(ep);
+		
 	}
-
+	
 	private void setOutputList(int ep){
-
+		clearAllNode();
 		outputList = (ArrayList<Character>) characters.get(ep);
 	}
-
+	
 	public void clearAllNode()
 	{
-
+		
 		this.network.deleteAllNode((ArrayList<Character>) characters.get(ep));
 	}
-
+	
 	public void addAllNode()
 	{
 		this.network.addAllNode((ArrayList<Character>) characters.get(ep));
 	}
-
+	
 	/*control the behavior of buttonA*/
 	public void buttonA()
 	{
 		this.addAllNode();
 	}
-
+	
 	/*control the behavior of buttonB*/
-	public void buttonB(){
+	public void buttonB(){ 
 		this.clearAllNode();
 	}
-
+	
 	/*control the button's behavior*/
 	public void controlEvent(ControlEvent theEvent) {
-		  println(theEvent.getController().getName());
+		  println(theEvent.getController().getName());	
 	}
 
-
+	
 }

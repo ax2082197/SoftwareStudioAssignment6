@@ -14,7 +14,7 @@ import java.util.Random;
 * You will need to declare other variables.
 */
 public class Network {
-
+	
 	private PApplet parent;
 	private int iniXCenter;
 	private int iniYCenter;
@@ -25,7 +25,7 @@ public class Network {
 	List <Integer> ls = new ArrayList<>();
 	private int num_select;
 	private int number ;
-
+	
 	public Network(PApplet parent){
 
 		this.parent = parent;
@@ -42,12 +42,12 @@ public class Network {
 		ls.add(420);ls.add(440);ls.add(450);
 		ls.add(460);ls.add(470);ls.add(480);ls.add(490);ls.add(493);ls.add(496);ls.add(498);ls.add(500);
 	}
-
+	
 	/*display the circle*/
 	public void display(){
 		parent.noFill();//don't fill any color in the ellipse
 		parent.ellipse(iniXCenter, iniYCenter, radius, radius);
-
+		
 		for( Character ch:node){
 			targetList = ch.getTarget();
 			for( Character ch1 : targetList){
@@ -64,9 +64,9 @@ public class Network {
 				}
 			}
 		}
-
+		
 	}
-
+	
 	public void changePosition()
 	{
 		Random num = new Random();
@@ -77,7 +77,7 @@ public class Network {
 			num_select = num_select%37;
 			double ytmp = 62500-(xp-this.iniXCenter)*(xp-this.iniXCenter);
 			double yp = Math.sqrt(ytmp);
-
+			
 			if( number ==0 )
 				number = 1;
 			else{
@@ -88,27 +88,27 @@ public class Network {
 			ch.setPosition((float)xp,(float)yp);
 		}
 	}
-
+	
 	public int getX()
 	{
 		return iniXCenter;
 	}
-
+	
 	public int getY()
 	{
 		return iniYCenter;
 	}
-
+	
 	public int getRadius()
 	{
 		return radius/2;
 	}
-
+	
 	public void addNode(Character ch)
 	{
 		node.add(ch);
 	}
-
+	
 	public boolean isNodeExist(Character ch)
 	{
 		if(node.contains(ch))
@@ -116,12 +116,12 @@ public class Network {
 		else
 			return false;
 	}
-
+	
 	public void deletenode(Character ch)
 	{
 		node.remove(ch);
 	}
-
+	
 	public void addAllNode(ArrayList<Character> all)
 	{
 		for( Character ch:all){
@@ -130,13 +130,13 @@ public class Network {
 		}
 		this.changePosition();//change all node's position
 	}
-
+	
 	public void deleteAllNode(ArrayList<Character> all)
 	{
 		for( Character ch:all){
 			if(node.contains(ch)){
 				this.deletenode(ch);
-				ch.setPosition(ch.getiniX(), ch.getiniY());
+				ch.setPosition(ch.getiniX(), ch.getiniY());	
 			}
 		}
 	}

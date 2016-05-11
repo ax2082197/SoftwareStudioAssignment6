@@ -10,7 +10,7 @@ import processing.core.PApplet;
 * You will need to declare other variables depending on your implementation.
 */
 public class Character {
-
+	
 	private MainApplet parent;
 	private String name;
 	public float radius = 45;	//37 character in total
@@ -37,51 +37,51 @@ public class Character {
 		parent.fill(Integer.parseInt(R,16),Integer.parseInt(G,16),Integer.parseInt(B,16));
 		parent.ellipse(this.x, this.y, radius, radius);
 	}
-
-
+	
+	
 	public void addTarget(Character ch, int level){
 		target.add(ch);
 		interact.put(ch,level);
 	}
-
+	
 	public ArrayList<Character> getTarget(){
 		return target;
 	}
-
+	
 	public HashMap<Character,Integer> getInteract(){
 		return interact;
 	}
-
+	
 	public String getName(){
 		return name;
 	}
-
+	
 	public void setPosition(float x, float y){
 		this.x = x;
 		this.y = y;
 	}
-
+	
 	public void setInitial(){
 		this.x = iniX;
 		this.y = iniY;
 	}
-
+	
 	/*!! new functions*/
 	public float getiniX()
 	{
 		return iniX;
 	}
-
+	
 	public float getiniY()
 	{
 		return iniY;
 	}
-
+	
 	public float getX()
 	{
 		return x;
 	}
-
+	
 	public float getY()
 	{
 		return y;
